@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         var img = findViewById<ImageView>(p0!!.id)
         if (player==1){
             img.setImageResource(R.drawable.o)
-            player=2
+
         }
         else{
             img.setImageResource(R.drawable.x)
