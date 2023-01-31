@@ -10,10 +10,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     var active = true
     var matrix = Array(3){IntArray(3){-1} }
+    var imgArray:MutableList<Int> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        imgArray.add(R.id.zero_zero)
+        imgArray.add(R.id.zero_one)
+        imgArray.add(R.id.zero_two)
+        imgArray.add(R.id.one_zero)
+        imgArray.add(R.id.one_one)
+        imgArray.add(R.id.one_two)
+        imgArray.add(R.id.two_zero)
+        imgArray.add(R.id.two_one)
+        imgArray.add(R.id.two_two)
 
         zero_zero.setOnClickListener(this)
         zero_one.setOnClickListener(this)
@@ -55,6 +66,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         two_two.setImageDrawable(null)
 
         active = true
+        matrix = Array(3){ IntArray(3){-1} }
+
+        active_player.text="Player X"
+        winner.text = ""
+        restart.visibility=View.INVISIBLE
 
     }
 
@@ -64,25 +80,47 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         var img = findViewById<ImageView>(p0!!.id)
         var tag = img.tag.toString().toInt()
 
+
+
         var col: Int = tag / 3
         var row: Int = tag % 3
+
+        var counter = 0
 
         if (matrix[col][row] == -1){
             if (active){
                 img.setImageResource(R.drawable.x)
+                counter++
                 active=false
                 matrix[col][row] = 1
+                active_player.text="Player O"
+
                 isWinner(1)
+
+
+
+
             }else{
                 img.setImageResource(R.drawable.o)
+                counter++
                 active=true
                 matrix[col][row] = 0
+                active_player.text="Player X"
+
                 isWinner(0)
+
+
             }
+
+
         }
 
 
-        img.isEnabled=false
+
+
+
+
+
     }
 
 
@@ -90,7 +128,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     fun isWinner(p:Int){
+
         var count = 0
+
+        for (i in 0..2){
+            for (j in 0..2){
+                if (matrix[i][j]==p) {
+                    count++
+                }
+                if (count==9){
+                    winner.text="Draw"
+                    finishGame()
+                    return
+                }
+            }
+
+
+        }
+
+        count = 0
 
         for(i in 0..2){
             for(j in 0..2){
@@ -100,29 +156,54 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             if (count==3){
                 winner.text="Winner is " + p
+                finishGame()
                 return
             }
-            count=0
+
+            count = 0
         }
         count = 0
 
 
 
-        for(i in 0..2){
-            for(j in 0..2){
-                if(i==j){
-                    if (matrix[i][j]==p){
+
+        for(i in 0..2) {
+            for (j in 0..2) {
+                if (i == j) {
+                    if (matrix[i][j] == p) {
                         count++
                     }
                 }
-
             }
-            if (count==3){
-                winner.text="Winner is " + p
+            if (count == 3) {
+                winner.text = "Winner is " + p
+                finishGame()
                 return
             }
-            count=0
+
         }
+
+        count = 0
+
+
+
+        for(i in 0..2){
+            for(j in 0..2) {
+                if (i + j == 2) {
+                    if (matrix[i][j] == p) {
+                        count++
+                    }
+                }
+            }
+                if (count==3){
+                    winner.text="Winner is " + p
+                    finishGame()
+                    return
+            }
+
+        }
+
+
 
         count = 0
 
@@ -131,32 +212,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     if (matrix[j][i]==p){
                         count++
                     }
-
-
             }
             if (count==3){
                 winner.text="Winner is " + p
+                finishGame()
                 return
             }
             count=0
         }
 
-        count = 0
+        var c = 0
 
         for(i in 0..2){
-            for(j in 0..2){
-                if (j==i){
-                    if (matrix[j][i]==p){
-                        count++
+            for(j in 0..2) {
+                    if ((matrix[i][j] == p)) {
+                        c++
                     }
-                }
             }
-            if (count==3){
-                winner.text="Winner is " + p
+            if (c==9){
+                winner.text="Draw"
+                finishGame()
                 return
             }
-            count=0
         }
+
+
 
     }
 
@@ -173,5 +253,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         restart.visibility=View.VISIBLE
 
+
     }
+
 }
+
