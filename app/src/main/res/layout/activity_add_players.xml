@@ -35,16 +35,17 @@
         android:src="@drawable/x"
         android:adjustViewBounds="true" />
 
-    <EditText
-        android:id="@+id/playerOneName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Player One"
-        android:textColorHint="@color/light_white"
-        android:background="@color/dark_blue"
-        android:textColor="#FFFFFF"/>
+        <EditText
+            android:id="@+id/playerOneName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/dark_blue"
+            android:hint="Player One"
+            android:minHeight="48dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="@color/light_white" />
 
 
 </LinearLayout>
@@ -75,10 +76,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Player Two"
-            android:textColorHint="@color/light_white"
             android:background="@color/dark_blue"
-            android:textColor="#FFFFFF"/>
+            android:hint="Player Two"
+            android:minHeight="48dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="@color/light_white" />
 
 
     </LinearLayout>
@@ -94,7 +96,7 @@
         android:layout_marginTop="40dp"
         android:text="Start Game"
         android:textColor="#FFFFFF"
-        android:background="@drawable/round_black_blue1000"
+        android:background="@drawable/round_black_blue1000" />
 
 
 

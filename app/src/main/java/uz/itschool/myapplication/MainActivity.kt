@@ -1,11 +1,16 @@
 package uz.itschool.myapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_add_players.*
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -20,8 +25,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         var getPlayerOneName = getIntent().getStringExtra("playerOne")
         var getPlayerTwoName = getIntent().getStringExtra("playerTwo")
 
-        playerOneName.setText(getPlayerOneName)
-        playerTwoName.setText(getPlayerTwoName)
+        player1name.setText(getPlayerOneName)
+        player2name.setText(getPlayerTwoName)
+
+
 
         imgArray.add(R.id.zero_zero)
         imgArray.add(R.id.zero_one)
@@ -47,6 +54,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         restart.setOnClickListener {
             restart()
+        }
+
+        if (winner.isVisible){
+            val animation: Animation = AnimationUtils.loadAnimation(this, R.anim.rotate)
+            winner.startAnimation(animation)
         }
 
     }
@@ -92,12 +104,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         var col: Int = tag / 3
         var row: Int = tag % 3
 
-        var counter = 0
 
         if (matrix[col][row] == -1){
             if (active){
                 img.setImageResource(R.drawable.x)
-                counter++
                 active=false
                 matrix[col][row] = 1
                 active_player.text="Player O"
@@ -109,7 +119,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             }else{
                 img.setImageResource(R.drawable.o)
-                counter++
                 active=true
                 matrix[col][row] = 0
                 active_player.text="Player X"
@@ -120,52 +129,37 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
 
+
+
         }
-
-
-
-
-
-
-
     }
-
-
-
-
 
     fun isWinner(p:Int){
 
         var count = 0
-
-        for (i in 0..2){
-            for (j in 0..2){
-                if (matrix[i][j]==p) {
-                    count++
-                }
-                if (count==9){
-                    winner.text="Draw"
-                    finishGame()
-                    return
-                }
-            }
+        var counter = 0
 
 
-        }
-
-        count = 0
 
         for(i in 0..2){
             for(j in 0..2){
                 if (matrix[i][j]==p){
                     count++
+                    counter++
                 }
             }
             if (count==3){
-                winner.text="Winner is " + p
+                if(p==1){
+                    winner.text="Winner is " + player1name.text.toString()
+                }
+                else{
+                    winner.text="Winner is " + player2name.text.toString()
+                }
                 finishGame()
                 return
             }
+
+
 
             count = 0
         }
@@ -179,14 +173,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if (i == j) {
                     if (matrix[i][j] == p) {
                         count++
+                        counter++
                     }
                 }
             }
             if (count == 3) {
-                winner.text = "Winner is " + p
+                if(p==1){
+                    winner.text="Winner is " + player1name.text.toString()
+                }
+                else{
+                    winner.text="Winner is " + player2name.text.toString()
+                }
                 finishGame()
                 return
             }
+
 
         }
 
@@ -199,14 +200,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if (i + j == 2) {
                     if (matrix[i][j] == p) {
                         count++
+                        counter++
                     }
                 }
             }
                 if (count==3){
-                    winner.text="Winner is " + p
+                    if(p==1){
+                        winner.text="Winner is " + player1name.text.toString()
+                    }
+                    else{
+                        winner.text="Winner is " + player2name.text.toString()
+                    }
                     finishGame()
                     return
             }
+
 
         }
 
@@ -218,30 +226,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             for(j in 0..2){
                     if (matrix[j][i]==p){
                         count++
+                        counter++
                     }
             }
             if (count==3){
-                winner.text="Winner is " + p
+                if(p==1){
+                    winner.text="Winner is " + player1name.text.toString()
+                }
+                else{
+                    winner.text="Winner is " + player2name.text.toString()
+                }
                 finishGame()
                 return
             }
+
+
             count=0
         }
 
-        var c = 0
 
-        for(i in 0..2){
-            for(j in 0..2) {
-                    if ((matrix[i][j] == p)) {
-                        c++
-                    }
-            }
-            if (c==9){
-                winner.text="Draw"
-                finishGame()
-                return
-            }
-        }
+
 
 
 
