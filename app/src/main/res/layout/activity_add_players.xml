@@ -94,7 +94,7 @@
         android:layout_marginTop="40dp"
         android:text="Start Game"
         android:textColor="#FFFFFF"
-        android:background="@drawable/round_black_blue1000"
+        android:background="@drawable/round_black_blue1000" />
 
 
 
