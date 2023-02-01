@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import kotlinx.android.synthetic.main.activity_add_players.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -15,6 +16,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var getPlayerOneName = getIntent().getStringExtra("playerOne")
+        var getPlayerTwoName = getIntent().getStringExtra("playerTwo")
+
+        playerOneName.setText(getPlayerOneName)
+        playerTwoName.setText(getPlayerTwoName)
 
         imgArray.add(R.id.zero_zero)
         imgArray.add(R.id.zero_one)
