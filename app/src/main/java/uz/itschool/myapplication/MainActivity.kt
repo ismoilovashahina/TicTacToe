@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     var active = true
     var matrix = Array(3){IntArray(3){-1} }
     var imgArray:MutableList<Int> = mutableListOf()
+    var counter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,7 +101,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         var tag = img.tag.toString().toInt()
 
 
-
         var col: Int = tag / 3
         var row: Int = tag % 3
 
@@ -124,12 +124,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 active_player.text="Player X"
 
                 isWinner(0)
-
-
             }
 
+        }
+        counter++
 
-
+        if(counter==9){
+            winner.text="Draw"
+            finishGame()
 
         }
     }
@@ -137,7 +139,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     fun isWinner(p:Int){
 
         var count = 0
-        var counter = 0
+
 
 
 
@@ -145,7 +147,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             for(j in 0..2){
                 if (matrix[i][j]==p){
                     count++
-                    counter++
                 }
             }
             if (count==3){
@@ -173,7 +174,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if (i == j) {
                     if (matrix[i][j] == p) {
                         count++
-                        counter++
                     }
                 }
             }
@@ -200,7 +200,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 if (i + j == 2) {
                     if (matrix[i][j] == p) {
                         count++
-                        counter++
+
                     }
                 }
             }
@@ -226,7 +226,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             for(j in 0..2){
                     if (matrix[j][i]==p){
                         count++
-                        counter++
                     }
             }
             if (count==3){
@@ -243,10 +242,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             count=0
         }
-
-
-
-
 
 
     }
